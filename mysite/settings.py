@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'register.apps.RegisterConfig',
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -99,7 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/',
 
+CRISPY_TEMPLATE_PACK="bootstrap4"
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

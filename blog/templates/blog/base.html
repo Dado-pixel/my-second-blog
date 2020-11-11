@@ -1,21 +1,35 @@
 {% load static %}
 <html>
     <head>
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <title>Django Girls blog</title>
+        <title>Django Boyz blog</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
     <body>
         <div class="page-header">
-            <h1><a href="/">Django Girls Blog</a></h1>
+            {% if user.is_authenticated %}
+                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                <p class="top-menu">Ciao {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+
+                <a href="{% url 'profilo' user.username user.id %}" class="top-menu"><span class="glyphicon glyphicon-user"></span></a>
+
+                {% if user.is_superuser %}
+                    <a href="{% url 'info_superuser' %}" class="top-menu"><span class="glyphicon glyphicon-inbox"></span></a>
+
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+            {% endif %}
+            <h1><a href="/">Django Boyz Blog</a></h1>
         </div>
         <div class="content container">
             <div class="row">
                 <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
+                    {% block content %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
