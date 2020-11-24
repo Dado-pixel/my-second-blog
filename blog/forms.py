@@ -12,3 +12,5 @@ class PostForm(forms.ModelForm):
         text = self.cleaned_data.get("text")
         if "hack" in text:
             raise forms.ValidationError("Impossibile pubblicare il post!")
+        else:
+        	return text

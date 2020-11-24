@@ -3,10 +3,10 @@
 {% block content %}
      <h1>{{ 'Posts per utente:' }}</h1>
      {% for k, v in numero.items %}
-         {{ 'L utente con id n° '}} {{ k }} {{ ' ha pubblicato '}}  {{ v }} {{ ' posts' }}
+         {{ "L'utente con id n° "}} {{ k }} {{ ' ha pubblicato '}}  {{ v }} {{ ' posts' }}
          <p>{{ ''|linebreaksbr }}</p>
      {% endfor %}
-     <h2>{{ 'I post pubblicati nell utlima ora sono ' }}<a href="{% url 'ultimaora' %}">{{ 'questi' }}</a></h2>
+     <h2>{{ "I post pubblicati nell'utlima ora sono " }}<a href="{% url 'ultimaora' %}">{{ 'questi' }}</a></h2>
      <h2>{{ 'Ricerca stringhe ' }}</h2>
      <form method="GET" action="{% url 'cercastringa' %}">
              <input name="q" value="{{request.GET.q}}" placeholder="cerca..." />
