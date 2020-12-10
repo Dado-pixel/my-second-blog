@@ -1,9 +1,8 @@
 from django.utils import timezone
-from .models import Post
+from .models import Post, IP
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import PostForm
-from django.contrib.auth.decorators import login_required, PermissionDenied
-from django.contrib.auth.models import User
+from .forms import PostForm, Login
+from django.contrib.auth.decorators import login_required, PermissionDenied, user_passes_test
 import json
 from datetime import timedelta
 from django.utils.timezone import now
@@ -12,13 +11,14 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import messages
+from flask import request
 
 
 def get_ip(request):
     try:
-        x_forward = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forward:
-            ip = x_forward.split(".")[0]
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(",")[0]
         else:
             ip = request.META.get("REMOTE_ADDR")
     except:
@@ -27,17 +27,23 @@ def get_ip(request):
 
 
 
-
-
-
-
-
 @login_required
 def post_list(request):
-    ip = get_ip(request)
-    messages.info(request,'Il tuo indirizzo ip è:')
+    last_ip = IP.objects.filter(User=request.user).latest('entr_date')
+    form = Login(request.POST)
+    if form.is_valid():
+        new_ip = form.save(commit=False)
+        new_ip.User = request.user
+        new_ip.entr_date = timezone.now()
+        new_ip.ip_address = get_ip(request)
+
+        this_ip = IP.objects.filter(User=request.user).latest('entr_date')
+        if this_ip != last_ip:
+            messages.warning(request, 'Indirizzo ip diverso dal precedente.')
+        new_ip.save()
+
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts, 'ip': ip})
+    return render(request, 'blog/post_list.html', {'posts': posts})
 
 @login_required
 def post_detail(request, pk):
@@ -81,6 +87,20 @@ def superuser_only(function):
             raise PermissionDenied
         return function(request)
     return _inner
+
+
+@login_required
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect('post_list')
+    return render(request, 'blog/delete.html', {'post': post})
+
+
+
+
+
 
 
 @superuser_only

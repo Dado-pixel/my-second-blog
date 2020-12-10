@@ -17,3 +17,12 @@ class Post(models.Model):
 
      def __str__(self):
          return self.title
+
+
+class IP(models.Model):
+    User = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    entr_date = models.DateTimeField(default=timezone.now)
+    ip_address = models.GenericIPAddressField(null = False)
+
+    def __str__(self):
+        return self.ip_address

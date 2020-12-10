@@ -8,8 +8,22 @@ from django.contrib.auth.models import User
 from .forms import UserLoginForm, UserRegisterForm
 
 
+def get_ip(request):
+    try:
+        x_forward = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forward:
+            ip = x_forward.split(".")[0]
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+    except:
+        ip = ""
+    return ip
+
+
+
 
 def login_view(request):
+    ip = get_ip(request)
     next = request.GET.get('next')
     title = 'Login'
     form = UserLoginForm(request.POST or None)

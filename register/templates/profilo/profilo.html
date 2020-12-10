@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-  
+  <p>{{' Nome utente = '}}{{ user }}</p>
+  <p>{{'ID utente = '}}{{ user.id }}</p>
 {% endblock content %}

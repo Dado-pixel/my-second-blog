@@ -1,3 +1,4 @@
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import (
@@ -8,6 +9,9 @@ from django.contrib.auth import (
 )
 User = get_user_model()
 
+
+
+
 class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -16,6 +20,7 @@ class UserLoginForm(forms.Form):
         password = self.cleaned_data.get('password')
         if username and password:
             user = authenticate(username=username, password=password)
+
             if not user:
                 raise forms.ValidationError('Utente inesistente')
             if not user.check_password(password):

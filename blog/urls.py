@@ -6,6 +6,7 @@ urlpatterns = [
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/new/', views.post_new, name='post_new'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
+    path('post/<int:pk>/delete', views.delete_post, name='delete_post'),
     path('info_superuser/', views.info_superuser, name='info_superuser'),
     path('ultimaora/', views.PostUltimaOra, name='ultimaora'),
     path('cercastringa/', views.CercaStringa, name='cercastringa')

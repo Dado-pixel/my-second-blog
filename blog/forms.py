@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Post, IP
 
 class PostForm(forms.ModelForm):
 
@@ -14,3 +14,9 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError("Impossibile pubblicare il post!")
         else:
         	return text
+
+
+class Login(forms.ModelForm):
+    class Meta:
+        model = IP
+        fields = ()

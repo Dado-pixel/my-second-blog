@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<p>Sei sicuro di voler eliminare "{{ post }}"?</p>
+<form action="{% url 'delete_post' post.pk %}"method="POST">
+  {% csrf_token %}
+  <a href="{% url 'post_list' %}">Annulla</a>
+  <input type="submit" name="Confirm">
+</form>
+
+
+{% endblock %}
