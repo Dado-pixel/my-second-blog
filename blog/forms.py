@@ -15,7 +15,6 @@ class PostForm(forms.ModelForm):
         else:
         	return text
 
-
 class Login(forms.ModelForm):
     class Meta:
         model = IP

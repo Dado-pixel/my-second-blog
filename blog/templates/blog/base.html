@@ -15,7 +15,7 @@
                 <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
                 <p class="top-menu">Ciao {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
 
-                <a href="{% url 'profilo' user.username user.id %}" class="top-menu"><span class="glyphicon glyphicon-user"></span></a>
+                <a href="{% url 'profile' user.username user.id %}" class="top-menu"><span class="glyphicon glyphicon-user"></span></a>
 
                 {% if user.is_superuser %}
                     <a href="{% url 'info_superuser' %}" class="top-menu"><span class="glyphicon glyphicon-inbox"></span></a>

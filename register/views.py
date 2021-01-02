@@ -7,7 +7,6 @@ from blog.models import Post
 from django.contrib.auth.models import User
 from .forms import UserLoginForm, UserRegisterForm
 
-
 def get_ip(request):
     try:
         x_forward = request.META.get("HTTP_X_FORWARDED_FOR")
@@ -18,9 +17,6 @@ def get_ip(request):
     except:
         ip = ""
     return ip
-
-
-
 
 def login_view(request):
     ip = get_ip(request)
@@ -58,11 +54,11 @@ def logout_view(request):
     return redirect('/')
 
 @login_required
-def profilo(request, user, id):
+def profile(request, user, id):
     users = User.objects.get(username=user)
     id = User.objects.get(id=id)
     contex = {
         "id": id,
         "user": users
     }
-    return render(request, 'profilo/profilo.html', contex)
+    return render(request, 'profile/profile.html', contex)

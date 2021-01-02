@@ -8,6 +8,6 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('post/<int:pk>/delete', views.delete_post, name='delete_post'),
     path('info_superuser/', views.info_superuser, name='info_superuser'),
-    path('ultimaora/', views.PostUltimaOra, name='ultimaora'),
-    path('cercastringa/', views.CercaStringa, name='cercastringa')
+    path('last_hour_post/', views.last_hour_post, name='last_hour_post'),
+    path('search_str/', views.search_str, name='search_str')
 ]

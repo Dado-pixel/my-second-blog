@@ -7,10 +7,8 @@ from django.contrib.auth import (
     login,
     logout,
 )
+
 User = get_user_model()
-
-
-
 
 class UserLoginForm(forms.Form):
     username = forms.CharField()

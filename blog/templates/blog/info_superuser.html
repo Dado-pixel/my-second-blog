@@ -2,13 +2,13 @@
 
 {% block content %}
      <h1>{{ 'Posts per utente:' }}</h1>
-     {% for k, v in numero.items %}
+     {% for k, v in n.items %}
          {{ "L'utente con id n° "}} {{ k }} {{ ' ha pubblicato '}}  {{ v }} {{ ' posts' }}
          <p>{{ ''|linebreaksbr }}</p>
      {% endfor %}
-     <h2>{{ "I post pubblicati nell'utlima ora sono " }}<a href="{% url 'ultimaora' %}">{{ 'questi' }}</a></h2>
+     <h2>{{ "I post pubblicati nell'utlima ora sono " }}<a href="{% url 'last_hour_post' %}">{{ 'questi' }}</a></h2>
      <h2>{{ 'Ricerca stringhe ' }}</h2>
-     <form method="GET" action="{% url 'cercastringa' %}">
+     <form method="GET" action="{% url 'search_str' %}">
              <input name="q" value="{{request.GET.q}}" placeholder="cerca..." />
              <button class="btn btn-success" type="submit" name="button">cerca</button>
      </form>

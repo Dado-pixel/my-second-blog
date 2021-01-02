@@ -4,5 +4,5 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('profilo/<str:user>/<int:id>', views.profilo, name='profilo')
+    path('profile/<str:user>/<int:id>', views.profile, name='profile')
 ]
